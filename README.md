@@ -23,32 +23,13 @@ Master and nodes must have passwordless SSH access
 
 ## Usage
 
-First create a new directory based on the `sample` directory within the `inventory` directory:
-
-```bash
-cp -R inventory/sample inventory/rpi-cluster
-```
-
-Second, edit `inventory/rpi-cluster/hosts.ini` to match the system information gathered above. For example:
-
-```bash
-[master]
-192.16.35.12
-
-[node]
-192.16.35.[10:11]
-
-[k3s_cluster:children]
-master
-node
-```
 
 If needed, you can also edit `inventory/rpi-cluster/group_vars/all.yml` to match your environment.
 
 Start provisioning of the cluster using the following command:
 
 ```bash
-ansible-playbook site.yml -i inventory/rpi-cluster/hosts.ini
+$ ansible-playbook site.yml -i inventory/rpi-cluster/hosts.ini
 ```
 
 ## Kubeconfig
@@ -56,13 +37,13 @@ ansible-playbook site.yml -i inventory/rpi-cluster/hosts.ini
 To get access to your **Kubernetes** cluster just
 
 ```bash
-scp pi@192.168.0.119:~/.kube/config ~/.kube/config
+$ scp pi@192.168.0.119:~/.kube/config ~/.kube/config
 ```
 
 View nodes:
 
 ```
-kubectl get nodes --output wide
+$ kubectl get nodes --output wide
 NAME     STATUS   ROLES    AGE     VERSION        INTERNAL-IP     EXTERNAL-IP   OS-IMAGE                         KERNEL-VERSION   CONTAINER-RUNTIME
 rpi-07   Ready    <none>   7m18s   v1.18.9+k3s1   192.168.0.121   <none>        Raspbian GNU/Linux 10 (buster)   5.4.51-v7l+      containerd://1.3.3-k3s2
 rpi-05   Ready    master   7m44s   v1.18.9+k3s1   192.168.0.119   <none>        Raspbian GNU/Linux 10 (buster)   5.4.51-v7l+      containerd://1.3.3-k3s2
